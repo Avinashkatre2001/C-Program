@@ -1,0 +1,17 @@
+#include <stdio.h>
+
+int main() {
+    int userInput;
+
+    // Read the user input
+    printf("Enter a number: ");
+    scanf("%d", &userInput);
+
+    // Assign the user input to the const variable
+    const int maxNumber = userInput;
+
+    // Print the value of the const variable
+    printf("The value of maxNumber is: %d\n", maxNumber);
+
+    return 0;
+}
