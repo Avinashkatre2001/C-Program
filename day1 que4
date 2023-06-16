@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <limits.h>
+
+int main() {
+    int maxNumber, result;
+
+    // Read the maximum possible number from the user
+    printf("Enter the maximum possible number: ");
+    scanf("%d", &maxNumber);
+
+    // Check for overflow before adding 1
+    if (maxNumber == INT_MAX) {
+        printf("Error: Integer overflow!\n");
+        return 1;
+    }
+
+    // Add 1 to the maximum possible number
+    result = maxNumber + 1;
+
+    // Print the result
+    printf("The result is: %d\n", result);
+
+    return 0;
+}
