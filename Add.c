@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+int main() {
+    float num1, num2, result;
+
+    // Read the first number from the user
+    printf("Enter the first number: ");
+    scanf("%f", &num1);
+
+    // Read the second number from the user
+    printf("Enter the second number: ");
+    scanf("%f", &num2);
+
+    // Add the two numbers
+    result = num1 + num2;
+
+    // Print the result
+    printf("The result is: %.2f\n", result);
+
+    return 0;
+}
