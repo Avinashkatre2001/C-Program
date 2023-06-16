@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <limits.h>
+
+int add(int n1, int n2);
+
+int main() {
+    int maxNumber, result;
+
+    // Read the maximum possible number from the user
+    printf("Enter the maximum possible number: ");
+    scanf("%d", &maxNumber);
+
+    // Add 1 to the maximum possible number using the add() function
+    result = add(maxNumber, 1);
+
+    // Print the result
+    printf("The result is: %d\n", result);
+
+    return 0;
+}
+
+int add(int n1, int n2) {
+    if (n2 > INT_MAX - n1) {
+        // Handle overflow if adding n2 to n1 exceeds INT_MAX
+        printf("Error: Integer overflow!\n");
+        return INT_MAX;
+    } else {
+        return n1 + n2;
+    }
+}
