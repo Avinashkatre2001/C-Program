@@ -1,0 +1,32 @@
+#include <iostream>
+
+// Function to swap any type of data
+template <typename T>
+void swapData(T* a, T* b) {
+    T temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int main() {
+    // Input first value
+    std::cout << "Enter the first value: ";
+    std::cin.ignore();
+    std::string firstValue;
+    std::getline(std::cin, firstValue);
+
+    // Input second value
+    std::cout << "Enter the second value: ";
+    std::string secondValue;
+    std::getline(std::cin, secondValue);
+
+    // Swapping the values
+    swapData(&firstValue, &secondValue);
+
+    // Output the swapped values
+    std::cout << "After swapping:" << std::endl;
+    std::cout << "First value: " << firstValue << std::endl;
+    std::cout << "Second value: " << secondValue << std::endl;
+
+    return 0;
+}
