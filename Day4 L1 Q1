@@ -1,0 +1,38 @@
+#include <stdio.h>
+
+struct Box {
+    double length;
+    double width;
+    double height;
+};
+
+void calculateVolumeAndSurfaceArea(struct Box* box) {
+    double volume = box->length * box->width * box->height;
+    double surfaceArea = 2 * ((box->length * box->width) + (box->length * box->height) + (box->width * box->height));
+
+    printf("Volume of the box: %.2lf\n", volume);
+    printf("Total surface area of the box: %.2lf\n", surfaceArea);
+}
+
+int main() {
+    struct Box myBox = { 5.0, 3.0, 2.0 };
+    struct Box* boxPtr = &myBox;
+
+    // Access members using (*). and (.) operators
+    printf("Using (*) operator:\n");
+    printf("Length of the box: %.2lf\n", (*boxPtr).length);
+    printf("Width of the box: %.2lf\n", (*boxPtr).width);
+    printf("Height of the box: %.2lf\n", (*boxPtr).height);
+
+    // Access members using -> operator (arrow operator)
+    printf("\nUsing -> operator:\n");
+    printf("Length of the box: %.2lf\n", boxPtr->length);
+    printf("Width of the box: %.2lf\n", boxPtr->width);
+    printf("Height of the box: %.2lf\n", boxPtr->height);
+
+    // Calculate volume and surface area
+    printf("\nCalculating volume and surface area:\n");
+    calculateVolumeAndSurfaceArea(boxPtr);
+
+    return 0;
+}
