@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+void print_exponent(double value) {
+    unsigned long long exponent;
+    unsigned long long mask = 0x7FF0000000000000ULL;
+
+    // Copy the binary representation of 'value' into 'exponent'
+    memcpy(&exponent, &value, sizeof(double));
+
+    // Apply the mask to extract the exponent bits
+    exponent &= mask;
+    exponent >>= 52;
+
+    printf("Exponent in Hex: 0x%llX\n", exponent);
+    printf("Exponent in Binary: 0b");
+
+    for (int i = 11; i >= 0; i--) {
+        unsigned long long bit = (exponent >> i) & 1;
+        printf("%llu", bit);
+    }
+
+    printf("\n");
+}
+
+int main() {
+    double x = 0.7;
+    print_exponent(x);
+
+    return 0;
+}
