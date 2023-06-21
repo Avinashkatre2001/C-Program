@@ -1,0 +1,48 @@
+#include <stdio.h>
+
+// Structure to represent a person
+typedef struct {
+    char name[50];
+    int age;
+} Person;
+
+// Function to swap the fields of two structures using pointers
+void swapFields(Person *p1, Person *p2) {
+    // Swap the name fields
+    char tempName[50];
+    strcpy(tempName, p1->name);
+    strcpy(p1->name, p2->name);
+    strcpy(p2->name, tempName);
+
+    // Swap the age fields
+    int tempAge = p1->age;
+    p1->age = p2->age;
+    p2->age = tempAge;
+}
+
+int main() {
+    Person person1, person2;
+
+    printf("Enter the name of person 1: ");
+    scanf("%s", person1.name);
+    printf("Enter the age of person 1: ");
+    scanf("%d", &person1.age);
+
+    printf("Enter the name of person 2: ");
+    scanf("%s", person2.name);
+    printf("Enter the age of person 2: ");
+    scanf("%d", &person2.age);
+
+    printf("\nBefore swapping:\n");
+    printf("Person 1: Name - %s, Age - %d\n", person1.name, person1.age);
+    printf("Person 2: Name - %s, Age - %d\n", person2.name, person2.age);
+
+    // Swap the fields of person1 and person2
+    swapFields(&person1, &person2);
+
+    printf("\nAfter swapping:\n");
+    printf("Person 1: Name - %s, Age - %d\n", person1.name, person1.age);
+    printf("Person 2: Name - %s, Age - %d\n", person2.name, person2.age);
+
+    return 0;
+}
