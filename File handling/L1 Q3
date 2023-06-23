@@ -1,0 +1,93 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_ENTRIES 100
+
+typedef struct {
+    int entryNo;
+    char sensorNo[10];
+    float temperature;
+    int humidity;
+    int light;
+    char time[9];
+} LogEntry;
+
+void extractLogEntries(LogEntry logEntries[], int* count) {
+    FILE* file = fopen("data.csv", "r");
+    if (file == NULL) {
+        printf("Failed to open the data file.\n");
+        *count = 0;
+        return;
+    }
+
+    char line[100];
+    *count = 0;
+
+    // Read each line from the file and extract log entries
+    while (fgets(line, sizeof(line), file)) {
+        if (line[strlen(line) - 1] == '\n') {
+            line[strlen(line) - 1] = '\0';  // Remove the newline character
+        }
+
+        // Tokenize the line based on commas
+        char* token = strtok(line, ",");
+        if (token == NULL) {
+            continue;  // Skip empty lines
+        }
+
+        logEntries[*count].entryNo = atoi(token);
+
+        token = strtok(NULL, ",");
+        strcpy(logEntries[*count].sensorNo, token);
+
+        token = strtok(NULL, ",");
+        logEntries[*count].temperature = atof(token);
+
+        token = strtok(NULL, ",");
+        logEntries[*count].humidity = atoi(token);
+
+        token = strtok(NULL, ",");
+        logEntries[*count].light = atoi(token);
+
+        token = strtok(NULL, ",");
+        strcpy(logEntries[*count].time, token);
+
+        (*count)++;
+
+        if (*count >= MAX_ENTRIES) {
+            break;  // Reached the maximum number of entries
+        }
+    }
+
+    fclose(file);
+}
+
+void displayLogEntries(const LogEntry logEntries[], int count) {
+    printf("Log Entries:\n");
+    printf("------------------------------------------------------\n");
+    printf("EntryNo\tSensorNo\tTemperature\tHumidity\tLight\tTime\n");
+    printf("------------------------------------------------------\n");
+
+    for (int i = 0; i < count; i++) {
+        printf("%d\t%s\t\t%.2f\t\t%d\t\t%d\t%s\n",
+               logEntries[i].entryNo,
+               logEntries[i].sensorNo,
+               logEntries[i].temperature,
+               logEntries[i].humidity,
+               logEntries[i].light,
+               logEntries[i].time);
+    }
+
+    printf("------------------------------------------------------\n");
+}
+
+int main() {
+    LogEntry logEntries[MAX_ENTRIES];
+    int count;
+
+    extractLogEntries(logEntries, &count);
+    displayLogEntries(logEntries, count);
+
+    return 0;
+}
