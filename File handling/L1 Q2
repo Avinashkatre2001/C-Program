@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+
+void convertToUpperCase(char* str) {
+    int i = 0;
+    while (str[i]) {
+        str[i] = toupper(str[i]);
+        i++;
+    }
+}
+
+void convertToLowerCase(char* str) {
+    int i = 0;
+    while (str[i]) {
+        str[i] = tolower(str[i]);
+        i++;
+    }
+}
+
+void convertToPureUpperCase(char* str) {
+    int i = 0;
+    while (str[i]) {
+        if (islower(str[i])) {
+            str[i] = toupper(str[i]);
+        }
+        i++;
+    }
+}
+
+int main(int argc, char *argv[]) {
+    if (argc < 3) {
+        printf("Insufficient arguments.\n");
+        printf("Usage: ./cp <option> <source_file> <destination_file>\n");
+        return 1;
+    }
+
+    char *option = argv[1];
+    char *sourcePath = argv[2];
+    char *destinationPath = argv[3];
+
+    FILE *sourceFile = fopen(sourcePath, "r");
+    if (sourceFile == NULL) {
+        printf("Failed to open the source file.\n");
+        return 1;
+    }
+
+    FILE *destinationFile = fopen(destinationPath, "w");
+    if (destinationFile == NULL) {
+        printf("Failed to create the destination file.\n");
+        return 1;
+    }
+
+    char ch;
+
+    if (strcmp(option, "-u") == 0) {
+        while ((ch = fgetc(sourceFile)) != EOF) {
+            fputc(toupper(ch), destinationFile);
+        }
+    } else if (strcmp(option, "-l") == 0) {
+        while ((ch = fgetc(sourceFile)) != EOF) {
+            fputc(tolower(ch), destinationFile);
+        }
+    } else if (strcmp(option, "-s") == 0) {
+        while ((ch = fgetc(sourceFile)) != EOF) {
+            if (islower(ch)) {
+                fputc(toupper(ch), destinationFile);
+            } else {
+                fputc(ch, destinationFile);
+            }
+        }
+    } else {
+        while ((ch = fgetc(sourceFile)) != EOF) {
+            fputc(ch, destinationFile);
+        }
+    }
+
+    fclose(sourceFile);
+    fclose(destinationFile);
+
+    printf("File copied successfully.\n");
+
+    return 0;
+}
